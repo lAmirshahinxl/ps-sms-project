@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>گزارش ها</title>  
+    <link rel="stylesheet" href="./../../vendors/dataTable/dataTables.min.css" type="text/css">
+    <link rel="shortcut icon" href="./../../assets/media/image/favicon.png"/>  
+    <link rel="stylesheet" href="./../../vendors/bundle.css" type="text/css">  
+    <link rel="stylesheet" href="./../../vendors/dataTable/dataTables.min.css" type="text/css"> 
+    <link rel="stylesheet" href="./../../assets/css/app.min.css" type="text/css">
+</head>
+<body class="form-membership mx-4">
+    <table id="smsTable" class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>نام</th>
+      <th>شماره</th> 
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model}} 
+    <tr id="model"> 
+        <td class="text-success font-weight-bold"><a href="#">{{name}}</a> </td>
+        <td class="text-success font-weight-bold"><a href="#">{{number}}</a> </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+
+<div class="modal" tabindex="-1" role="dialog" id="modalization">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">متن پیام</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <p id="containerer"></p>
+      </div>
+      <div class="d-flex justify-content-center align-item-center modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./../../vendors/bundle.js"></script>  
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="./../../vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="./../../vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="./../../vendors/dataTable/dataTables.responsive.min.js"></script>
+<!-- App scripts --> 
+<script src="./../../assets/js/app.min.js"></script>
+
+<script type="text/javascript"> 
+   function showMessage(input){
+      $('#containerer').text(input) 
+      jQuery.noConflict();
+       $('#modalization').modal('show')
+    }
+  $(document).ready(function (){
+    $('#smsTable').DataTable({
+        "scrollY": "400px",
+        "scrollCollapse": true
+    }); 
+});</script>
+</body> 
+</html>

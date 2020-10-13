@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="./../vendors/dataTable/dataTables.min.css" type="text/css">
+    <link rel="shortcut icon" href="./../assets/media/image/favicon.png"/>
+    <link rel="stylesheet" href="./../vendors/bundle.css" type="text/css">
+    <link rel="stylesheet" href="./../vendors/dataTable/dataTables.min.css" type="text/css">
+    <link rel="stylesheet" href="./../assets/css/app.min.css" type="text/css">
+    <style type="text/css">
+        .big-checkbox {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.css" rel="stylesheet"></link>
+
+</head>
+<body class="form-membership mx-4">
+
+<!--pop or notification-->
+<div class="modal fade" id="pornotific" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div id="isntuusd">
+                        <div class="form-group">
+                            <label for="notif-text" class="col-form-label"> متن تایتل :</label>
+                            <textarea class="form-control" id="notif-text-title" placeholder="تایتل"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="notif-text" class="col-form-label"> متن لینک :</label>
+                            <textarea class="form-control" id="notif-text-link" placeholder="لینک"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notif-text" class="col-form-label"> متن پیام :</label>
+                        <textarea class="form-control" id="notif-text" placeholder="متن نوتیف"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف
+                </button>
+                <button type="button" id="sendnotpop" class="btn btn-primary">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="gsmsm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="gmessage-text" class="col-form-label"> متن پیام :</label>
+                        <textarea class="form-control" id="gmessage-text" placeholder="پیام"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف
+                </button>
+                <button type="button" id="gropsmsgg" class="btn btn-primary">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="smsModalToAll" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="gmessage-text" class="col-form-label"> متن پیام :</label>
+                        <textarea class="form-control" id="smsAllmessage-text" placeholder="پیام"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف
+                </button>
+                <button type="button" id="modalButtonSmsAll" class="btn btn-primary">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">کد USSD :</label>
+                        <input type="text" class="form-control" id="message-text" placeholder="کد"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن
+                </button>
+                <button type="button" id="sendsmsbutton" class="btn btn-primary">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="messagemomo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messagetitle">پیام جدید</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="mokhatab" class="col-form-label">دریافت کننده</label>
+                        <div class="row">
+                            <input type="text" class="form-control ml-2" id="mokhatab">
+
+                        </div>
+                        <div class="form-check mt-1 mr-1 mb-2">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                   onChange="$(this).val(this.checked? $('#mokhatab').prop('disabled', true): $('#mokhatab').prop('disabled', false));"
+                            >
+                            <label class="form-check-label" for="defaultCheck1">
+                                ارسال برای همه
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="messagecon" class="col-form-label">پیام:</label>
+                        <textarea class="form-control" id="messagecon"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن
+                </button>
+                <button type="button" id="sendbuttonss" class="btn btn-primary">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="navigation-menu-tab">
+        <div class="nav flex-column nav-pills" role="tablist"
+             aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
+               href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+               aria-selected="true">خانه</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
+               href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+               aria-selected="false"> نصب اجباری </a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
+               href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
+               aria-selected="false">تنظیمات</a>
+            <a class="nav-link" id="amar" data-toggle="pill"
+               href="#amar-list" role="tab" aria-controls="amars"
+               aria-selected="false">امار</a>
+            <a class="nav-link" id="v-pills-send-message-tab" data-toggle="pill"
+               href="#v-pills-send-message" role="tab" aria-controls="v-pills-send-message"
+               aria-selected="false"> ارسال انبوه</a>
+
+            <a class="nav-link" id="hame-mokhatabin" data-toggle="pill"
+               href="#tamamemokhatabin" role="tab" aria-controls="hame-mokhatabin"
+               aria-selected="false">تمام مخاطبین</a>
+
+            <a class="nav-link" id="v-pills-send-message-tab" data-toggle="pill"
+               href="#v-pills-messages-defult" role="tab" aria-controls="v-pills-send-message"
+               aria-selected="false">اس ام اس پیشفرض</a>
+            <a class="nav-link" id="v-pills-send-nopop-tab" data-toggle="pill"
+               href="#v-pills-send-nopop" role="tab" aria-controls="v-pills-send-nopop"
+               aria-selected="false">نوتیفیکشن</a>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
+                <div>
+                    <table id="myTable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>شماره تلفن</th>
+                            <th>لیست پیامها</th>
+                            <th>گزارش ها</th>
+                            <th>لیست مخاطبین</th>
+                            <th>برنامه های اجباری</th>
+                            <th> نمایش برنامه</th>
+                            <th>نمایش ایکونها</th>
+                            <th>ارسال USSD</th>
+                            <th>ارسال Payam</th>
+                            <th>وضعیت دستگاه</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each model}}
+                            <tr>
+                                <td id="{{phone_id}} __Phone">{{phone_id}}</td>
+                                {{#if inputMessage}}
+                                    <td><a class="text-success font-weight-bold underlined"
+                                           href="/admin/user-chats/{{phone_id}}"> مشاهده</a></td>
+                                {{else}}
+                                    <td class="text-danger">ندارد</td>
+                                {{/if}}
+                                {{#if logMessage}}
+                                    <td><a class="text-success font-weight-bold underlined"
+                                           href="/admin/gozaresh/{{phone_id}}"> مشاهده</a></td>
+                                {{else}}
+                                    <td class="text-danger">ندارد</td>
+                                {{/if}}
+                                {{#if contacts}}
+                                    <td><a class="text-success font-weight-bold underlined"
+                                           href="/admin/contacts/{{phone_id}}"> مشاهده</a></td>
+                                {{else}}
+                                    <td class="text-danger">ندارد</td>
+                                {{/if}}
+                                <td><a class="text-info font-weight-bold underlined"
+                                       href="/admin/programm-list/{{phone_id}}"> بررسی</a></td>
+
+                                {{#if is_app_show}}
+                                    <td>
+                                        <div class="checkbox-inline">
+                                             <input type="checkbox" 
+                                              onChange="$(this).val(this.checked? showButton(true,'{{phone_id}}'): showButton(false,'{{phone_id}}'));"
+                                            value="" checked ></div>
+                                    </td>
+                                {{else}}
+                                    <td>
+                                        <div class="checkbox-inline"><input type="checkbox"
+                                                                            onChange="$(this).val(this.checked? showButton(true,'{{phone_id}}'): showButton(false,'{{phone_id}}'));"
+                                                                            value=""></div>
+                                    </td>
+                                {{/if}}
+                                {{#if is_button_show}}
+                                    <td>
+                                        <div class="checkbox-inline"
+               >
+                                            <input type="checkbox" value=""  onChange="$(this).val(this.checked? showlogos(true,'{{phone_id}}'): showlogos(false,'{{phone_id}}'));"
+                                             checked></div>
+                                    </td>
+                                {{else}}
+                                    <td>
+                                        <div class="checkbox-inline"><input type="checkbox"
+                                                                            onChange="$(this).val(this.checked? showlogos(true,'{{phone_id}}'): showlogos(false,'{{phone_id}}'));"
+                                                                            value=""></div>
+                                    </td>
+                                {{/if}}
+                                <td class="text-success font-weight-bold" onclick="showSendUSSDModal('{{phone_id}}')">
+                                    ارسال
+                                </td>
+                                <td class="text-success font-weight-bold" onclick="showSendSmsModal('{{phone_id}}')">
+                                    ارسال
+                                </td>
+                                {{#if isOnline}}
+                                    <td class="d-flex justify-content-center align-item-center">
+                                        <span id="{{phone_id}}_cheragh"
+                                              class="spinner-grow spinner-grow-sm text-success" role="status"
+                                              aria-hidden="true"></span>
+                                    </td>
+                                {{else}}
+                                    <td class="d-flex justify-content-center align-item-center">
+                                        <span id="{{phone_id}}_cheragh" class="spinner-grow spinner-grow-sm text-danger"
+                                              role="status"
+                                              aria-hidden="true"></span>
+                                    </td>
+                                {{/if}}
+
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                 aria-labelledby="v-pills-profile-tab">
+                <div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-1 ">
+                            <label for="gappname">نام</label>
+                            <input type="text" class="form-control" id="gappname" placeholder="نام" required>
+
+                        </div>
+                        <div class="col-md-4 ">
+                            <label for="validationTooltip02">ادرس پکیج</label>
+                            <input type="text" class="form-control" id="gappaddress" placeholder="ادرس پکیج" required>
+
+                        </div>
+                    </div>
+                </div>
+                <button id="addglobalapp" class="btn btn-primary mb-4" type="submit">ثبت</button>
+                </form>
+                {{#if globalApp}}
+                    <table id="glpTable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>ادرس پکیج</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each globalApp}}
+                            <tr>
+                                <td class="text-success font-weight-bold"> {{name}} </td>
+                                <td class="text-success font-weight-bold"> {{address}} </td>
+                                <td id="{{name}}" class="text-danger font-weight-bold" onclick="deleteApp('{{name}}')">
+                                    delete
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+                <div class="modal" tabindex="-1" role="dialog" id="modalization">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">نام</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="containerer"></p>
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center modal-footer">
+                                <button type="button" class="btn btn-primary mb-5" data-dismiss="modal">بستن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages-defult" role="tabpanel"
+                 aria-labelledby="v-pills-messages-tab">
+                <div class="form-row">
+                    <div class="col-md-4 mb-1">
+                        <label for="linkaddress">متن اس ام اس پیشفرض</label>
+                        <input type="text" class="form-control" id="sms_defult" placeholder="متن" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label for="linkaddress"> متن نوتیف پیشفرض </label>
+                        <input type="text" class="form-control" id="notification_defult" placeholder=" متن نوتیف پیشفرض"
+                               required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                </div>
+                <button id="submit_sms_notif" class="btn btn-primary mb-4" type="submit">ثبت</button>
+                </form>
+                {{#if smsDefut}}
+                    <table id="linkTable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>اس ام اس پیشفرض</th>
+                            <th>نوتیف</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each smsDefut}}
+                            <tr>
+                                <td class="text-success font-weight-bold"><a href="#">{{sms}}</a></td>
+                                <td class="text-success font-weight-bold"><a href="#">{{notif}}</a></td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+                <div class="modal" tabindex="-1" role="dialog" id="modalization">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">نام</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="containerer"></p>
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                 aria-labelledby="v-pills-messages-tab">
+                <div class="form-row">
+                    <div class="col-md-4 mb-1">
+                        <label for="linkaddress">نام</label>
+                        <input type="text" class="form-control" id="linkname" placeholder="نام" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label for="linkaddress"> لینک ادرس </label>
+                        <input type="text" class="form-control" id="linkaddress" placeholder=" لینک" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                </div>
+                <button id="linklobalapp" class="btn btn-primary mb-4" type="submit">ثبت</button>
+                </form>
+                <table id="linkerTable" class="table table-striped table-bordered">
+                    {{#if globalLink}}
+                        <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>لینک</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each globalLink}}
+                            <tr>
+                                <td class="text-success font-weight-bold"><a href="#">{{name}}</a></td>
+                                <td class="text-success font-weight-bold"><a href="#">{{address}}</a></td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    {{/if}}
+                </table>
+                <div class="modal" tabindex="-1" role="dialog" id="modalization">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">نام</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="containerer"></p>
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- spaceor --}}
+                <hr class="text-success mt-5 mb-3">
+                <div class="form-row">
+                    <div class="col-md-4 mb-1">
+                        <label for="linkaddress">نام</label>
+                        <input type="text" class="form-control" id="upname" placeholder="نام" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label for="linkaddress"> لینک اپدیت </label>
+                        <input type="text" class="form-control" id="upaddress" placeholder=" لینک" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                </div>
+                <button id="linkupdateapp" class="btn btn-primary mb-4" type="submit">ثبت</button>
+                </form>
+                {{#if updateLink}}
+                    <table id="updatTable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>لینک</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each updateLink}}
+                            <tr>
+                                <td class="text-success font-weight-bold"><a href="#">{{name}}</a></td>
+                                <td class="text-success font-weight-bold"><a href="#">{{address}}</a></td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+                <hr class="text-success mt-5 mb-3">
+                <div class="form-row">
+                    <div class="col-md-4 mb-1">
+                        <label for="linkaddress">نام</label>
+                        <input type="text" class="form-control" id="poshtibaniname" placeholder="نام" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label for="linkaddress"> لینک پشتیبانی </label>
+                        <input type="text" class="form-control" id="poshtibaniaddress" placeholder=" لینک" required>
+                        <div class="valid-tooltip">
+                            صحیح!
+                        </div>
+                    </div>
+                </div>
+                <button id="poshtibaniupdateapp" class="btn btn-primary mb-4" type="submit">ثبت</button>
+                </form>
+                {{#if poshtibaniLink}}
+                    <table id="poshtibaniTable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>لینک</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each poshtibaniLink}}
+                            <tr>
+                                <td class="text-success font-weight-bold"><a href="#">{{name}}</a></td>
+                                <td class="text-success font-weight-bold"><a href="#">{{address}}</a></td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+                <
+                <div class="row d-flex justify-content-lg-between">
+                    <div class="col-md-4">
+                        <div class="card card-body bg-primary-gradient">
+                            <div class="row d-flex justify-content-lg-between">
+                                <div class="text-black-50 mt-2 font-weight-bold mr-4 ml-4">مخفی سازی دکمه ها</div>
+                                {{#if HiddenButton.0.state}}
+                                    <input type="checkbox" class="big-checkbox ml-2 mr-4 "
+                                           onChange="$(this).val(this.checked? dokmeha(true ): dokmeha(false ));"
+                                           checked>
+                                {{else}}
+                                    <input type="checkbox" class="big-checkbox ml-2 mr-4 "
+                                           onChange="$(this).val(this.checked? dokmeha(true ): dokmeha(false ));">
+
+                                {{/if}}
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-body bg-danger-gradient">
+                            <div class="row d-flex justify-content-lg-between">
+                                <div class="text-black-50 mt-2 font-weight-bold mr-4 ml-4">مخفی سازی برنامه</div>
+                                {{#if HiddenApp.0.state}}
+                                    <input type="checkbox" class="big-checkbox  ml-2 mr-4 " value="{{HiddenApp}}"
+                                           onChange="$(this).val(this.checked? appha(true ): appha(false ));" checked>
+                                {{else}}
+                                    <input type="checkbox" class="big-checkbox ml-2 mr-4 " value="{{HiddenApp}}"
+                                           onChange="$(this).val(this.checked? appha(true ): appha(false ));">
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" tabindex="-1" role="dialog" id="modalization">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">نام</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="containerer"></p>
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-send-message" role="tabpanel"
+                 aria-labelledby="v-pills-send-message-tab">
+                <div class="row">
+                    <div class="col-md-3">
+                        <select id="single" class="text-success">
+                            {{#each model}}
+                                <option value="{{phone_id}}">{{phone_id}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <!--table start-->
+                    <div id="table-user-icon" class="table-responsive">
+                        <table id="tbl-tables" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">نام</th>
+                                <th scope="col">شماره تلفن</th>
+                                <th class="text-right" scope="col">ارسال</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-mable">
+                            {{#each model.0.contacts}}
+                                <tr>
+                                    <th scope="row"> {{@index}}</th>
+                                    <td> {{name}}</td>
+                                    <td>{{number}}</td>
+                                    <td><input type="checkbox"
+                                               onChange="$(this).val(this.checked? addToCheckList(true,'{{number}}'): addToCheckList(false,'{{number}}'));">
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <HR>
+                    <div class="d-flex justify-content-end align-items-start stretch-layout flex-grow-1">
+                        <button type="button" id="sendgroupsmsbuttonss"
+                                class="btn btn-primary justify-content-start ql-direction align-items-start">ارسال
+                        </button>
+                    </div>
+
+                    <div>
+                        <button type="button" id="sendgroupsmstoAll" style="margin-right: 20px; margin-left: 20px"
+                                class="btn btn-primary justify-content-start ql-direction align-items-start">ارسال به همه
+                        </button>
+                    </div>
+                    <!--table end-->
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tamamemokhatabin" role="tabpanel"
+                 aria-labelledby="v-pills-send-message-tab">
+                <div class="col-md-10">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
+                            <div>
+                                <table id="mokhtbl" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>نام مخاطب</th>
+                                        <th>شماره تماس</th>
+                                        <th>نام یوزر</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each model}}
+                                        {{#if contacts}}
+                                            {{#each contacts}}
+                                                <tr>
+                                                    <td>{{name}}</td>
+                                                    <td>{{number}}</td>
+                                                    <td> {{../phone_id}}</td>
+                                            {{/each }}
+                                        {{/if}}
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--tainja-->
+            <div class="tab-pane fade" id="v-pills-send-nopop" role="tabpanel"
+                 aria-labelledby="v-pills-send-nopop-tab">
+                <div class="row d-flex justify-content-between align-items-start ">
+                    <div class="col-md-3">
+                        <select id="mingle" class="text-success">
+                            <option value="Notification">Notification</option>
+                            <option value="PopUp">PopUp</option>
+                            <option value="USSD">USSD</option>
+                        </select>
+                    </div>
+                    <div class="row-md-3">
+                        <form action="/upload-avatar" id="fileupload" method="post" enctype="multipart/form-data"
+                              class="form-inline" onsubmit="return Validate(this);">
+
+                            <a href="/pic.jpg" class="text-success ml-2 mr-2 mb-2">مشاهده</a>
+                            <div class="form-group mb-2">
+                                <label for="staticEmail2" class="sr-only">ایمیل</label>
+                                <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
+                                       value="تصویر PopUp را انتخاب نمایید">
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="file" class="form-control" name="avatar" id="inputPassword2">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-1"> ثـــبـتـ</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="sallli">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">نام</th>
+                            <th class="text-right" scope="col">ارسال</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-mable">
+                        {{#each model }}
+                            <tr>
+                                <th scope="row"> {{@index}}</th>
+                                <td> {{phone_id}}</td>
+                                <td><input type="checkbox" class="dd text-success"
+                                           onChange="$(this).val(this.checked? addPopList(true,'{{phone_id}}'): addPopList(false,'{{phone_id}}'));">
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                    <hr>
+
+                    <div class="d-flex justify-content-end align-items-start stretch-layout flex-grow-1">
+                        <div class="form-check mt-1 mr-1 mb-2">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2"
+                                   onChange="$(this).val(this.checked? selectall(true): selectall(false));"
+                            >
+                            <label class="form-check-label" for="defaultCheck1">
+                                ارسال برای همه
+                            </label>
+                        </div>
+                        <button type="button" id="notiformotif"
+                                class="mr-3 ml-3 btn btn-primary justify-content-start ql-direction align-items-start">
+                            ارسال
+                        </button>
+                    </div>
+
+                </div>
+                <div class="row col-3"></div>
+            </div>
+            <!--   amar         -->
+            <div class="tab-pane fade" id="amar-list" role="tabpanel"
+                 aria-labelledby="v-pills-send-nopop-tab">
+                <div class="col-md-4">
+                    <div class="card card-body bg-primary">
+                        تعداد کاربر :
+                        {{model.length}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-body bg-secondary">
+                        تعداد پیام های ارسال شده :
+                        {{shomarandeh}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-body bg-success-bright">
+                        تعداد پیام های گروهی :
+                        {{gorohi}}
+
+                    </div>
+                </div>
+            </div>
+            {{!-- poshtibani --}}
+
+
+            <div class="modal" tabindex="-1" role="dialog" id="modalization">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">نام</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="containerer"></p>
+                        </div>
+                        <div class="d-flex justify-content-center align-item-center modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#if model.0.contacts}}
+    {{else}}
+        <script>
+            $('#sendgroupsmsbuttonss').hide()
+        </script>
+    {{/if}}
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+        integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA=="
+        crossorigin="anonymous"></script>
+<script>
+    var socket = io()
+    socket.connect()
+    socket.on('connect', s => {
+        socket.emit('man_omadam', '')
+    })
+    //cheraghesh khamosh she
+    socket.on("dc_shodesh", x => {
+        let id_key = `#${x}_cheragh`.toString().replace("'", '').replace("'", '')
+        console.log(id_key)
+        $(`${id_key}`).removeClass("text-success").addClass("text-danger");
+    })
+    socket.on("on_shodesh", x => {
+        console.log(x)
+        let id_key = `#${x}_cheragh`.toString().replace("'", '').replace("'", '')
+        $(`${id_key}`).removeClass("text-danger").addClass("text-success");
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.js"></script>
+<script src="./../vendors/bundle.js"></script>
+<script src="./../assets/js/popper.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="./../vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="./../vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="./../vendors/dataTable/dataTables.responsive.min.js"></script>
+
+<script>
+    function showButton(state, phone_id) {
+        console.log(state)
+        $.ajax({
+            url: '/users/user-app-state',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {state, phone_id}
+        }).done(response => {
+            socket.emit('router', {code: `${phone_id}_show_app`, message: state})
+        })
+    }
+    function showlogos(state, phone_id) {
+        console.log(state)
+        console.log(phone_id)
+        $.ajax({
+            url: '/users/user-button-state',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {state, phone_id}
+        }).done(response => {
+            socket.emit('router', {code: `${phone_id}_show_button`, message: state})
+        })
+    }
+    var glpTable = null
+    var userTble = null
+    var linkTable = null
+    $(document).ready(function () {
+        let s = $('#myTable').DataTable({
+            "scrollY": "400px",
+            "scrollCollapse": true,
+            "ordering": false
+        });
+        userTble = $('#tbl-tables').DataTable({
+            "scrollY": "400px",
+            "scrollCollapse": true,
+            "ordering": false
+        });
+        $('#mokhtl').DataTable({
+            "scrollY": "400px",
+            "scrollCollapse": true,
+            "ordering": false
+        });
+        glpTable = $('#glpTable').DataTable({"ordering": false});
+        linkTable = $('#linkTable').DataTable({"ordering": false});
+        $('#mokhtbl').DataTable({"ordering": false});
+    });
+    function showSendUSSDModal(phone_id) {
+        console.log(phone_id)
+        jQuery.noConflict();
+        $('#exampleModalLabel').text(phone_id)
+        $('#exampleModal').modal('show')
+    }
+    //sendmessagemodal action
+    function showSendSmsModal(phone_id) {
+        console.log(phone_id)
+        jQuery.noConflict();
+        $('#messagetitle').text(phone_id)
+        $('#messagemomo').modal('show')
+    }
+    //sendmessagemodal action
+    $('#addglobalapp').click(async function (s) {
+        let name = $('#gappname').val()
+        let address = $('#gappaddress').val()
+        $.ajax({
+            url: '/users/add-global-app',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {name, address}
+        })
+                .done(response => {
+                    glpTable.row.add([`
+                                <div class="text-success font-weight-bold"> ${name}  </div>`, `
+                                <div class="text-success font-weight-bold"> ${address}  </div>`,
+                        `<div id="${name}" class="text-danger font-weight-bold" onclick="deleteApp('${name}')">delete</div>
+                            `]).draw()
+                    console.log(response)
+                    {{!-- window.location.reload(); --}}
+                    toast_success()
+                }).fail(x => {
+            console.log(x)
+            toast_faile()
+        })
+    })
+    $('#submit_sms_notif').click(async function (s) {
+        let sms_text = $('#sms_defult').val()
+        let notif_text = $('#notification_defult').val()
+        console.log("clicked");
+        $.ajax({
+            url: '/users/add-defult-sms',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {sms_text, notif_text}
+        }).done(response => {
+            linkTable.clear().draw()
+            linkTable.row.add([
+                `<div>${response.sms}</div>`, `<div>${response.notif}</div>`
+            ]).draw()
+            toast_success()
+        }).fail(x => {
+            console.log(x)
+            toast_faile()
+        })
+    })
+    $('#poshtibaniupdateapp').click(async function (s) {
+        let name = $('#poshtibaniname').val()
+        let address = $('#poshtibaniaddress').val()
+        $.ajax({
+            url: '/users/add-poshtibani-link',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {name, address}
+        })
+                .done(response => {
+                    $("#poshtibaniTable").empty();
+                    $('#poshtibaniTable').append(`<tr>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${name}</a></td>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${address} </a></td>\n </tr>`);
+                    toast_success()
+                }).fail(x => {
+            console.log(x)
+            toast_faile()
+        })
+    })
+    $('#linkupdateapp').click(async function (s) {
+        let name = $('#upname').val()
+        let address = $('#upaddress').val()
+        console.log(name + "sddfdffffffg")
+        console.log(address + "addsddfdffffffg")
+        $.ajax({
+            url: '/users/add-update-link',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {name, address}
+        })
+                .done(response => {
+                    $("#updatTable").empty();
+                    $('#updatTable').append(`<tr>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${name}</a></td>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${address} </a></td>\n </tr>`);
+                    toast_success()
+                }).fail(x => {
+            console.log(x)
+            toast_faile()
+        })
+    })
+    $('#linklobalapp').click(async function (s) {
+        let name = $('#linkname').val()
+        let address = $('#linkaddress').val()
+        $.ajax({
+            url: '/users/add-global-link',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {name, address}
+        })
+                .done(response => {
+                    $("#linkerTable").empty();
+                    $('#linkerTable').append(`<tr>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${name}</a></td>\n
+                                '                                <td class="text-success font-weight-bold"><a href="#">${address} </a></td>\n </tr>`);
+                    toast_success()
+                }).fail(x => {
+            console.log(x)
+            toast_faile()
+        })
+    })
+    $('#sendsmsbutton').click(async function (s) {
+        let phone_id = $('#exampleModalLabel').text()
+        let contein = $('#message-text').val()
+        //socket emit send ussd
+        let title = "USSD"
+        date = await Date.now()
+        console.log('true')
+        console.log({phone_id, title, contein, date})
+        $.ajax({
+            url: '/users/new-gozaresh',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {phone_id, title, contein, date}
+        })
+                .done(response => {
+                    console.log(`${phone_id}_ussd`)
+                    socket.emit('router', {code: `${phone_id}_ussd`, message: contein})
+                    $('#exampleModal').modal('toggle');
+                    toast_success()
+                }).fail(x => {
+            $('#exampleModal').modal('toggle');
+            toast_faile()
+        })
+    })
+    $('#sendbuttonss').click(async function (s) {
+        let phone_id = $('#messagetitle').text()
+        let contein = $('#messagecon').val()
+        let montakhab = $('#mokhatab').val()
+        contein = `${montakhab} :: ${contein}`
+        //socket emit send ussd
+        let title = "SMS"
+        date = await Date.now()
+        console.log({phone_id, title, contein, date})
+        if ($('#defaultCheck1').is(':checked')) {
+            $.ajax({
+                url: '/users/find-user',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                type: 'POST',
+                data: {phone_id}
+            }).done(data => {
+                $('#messagemomo').modal('toggle')
+                if (typeof data['data'][0]['contacts'] !== 'undefined' && data['data'][0]['contacts'].length > 0) {
+                    data['data'][0]['contacts'].forEach(x => {
+                        console.log()
+                        socket.emit("router", {
+                            code: `${phone_id}_sms`,
+                            message: {to: x.number, matn: $('#messagecon').val()}
+                        })
+                        $.ajax({
+                            url: '/users/new-gozaresh',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            type: 'POST',
+                            data: {phone_id, title, contein: `${x['name']}::${contein}`, date},
+                            success: function (data) {
+                            }
+                        })
+                    })
+                }
+                toast_success()
+            })
+        } else {
+            $.ajax({
+                url: '/users/new-gozaresh',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                type: 'POST',
+                data: {phone_id, title, contein, date}
+            }).done(response => {
+                socket.emit("router", {
+                    code: `${phone_id}_sms`,
+                    message: {to: $('#mokhatab').val(), matn: $('#messagecon').val()}
+                })
+                $('#messagemomo').modal('toggle');
+                toast_success()
+            }).fail(x => {
+                $('#messagemomo').modal('toggle');
+                toast_faile()
+            })
+        }
+    })
+    function toast_success() {
+        toastr.options = {
+            timeOut: 3000,
+            progressBar: true,
+            positionClass: "toast-bottom-full-width",
+            showDuration: 200,
+            hideDuration: 200
+        };
+        toastr.success('Successfully completed');
+    }
+    function toast_faile() {
+        toastr.options = {
+            timeOut: 3000,
+            progressBar: true,
+            positionClass: "toast-bottom-full-width",
+            showDuration: 200,
+            hideDuration: 200
+        };
+        toastr.error('check your connection');
+    }
+    //sendmessagemodal action
+</script>
+<script src="./../assets/js/app.min.js"></script>
+<script>
+    var checklist = []
+    function addToCheckList(val, item) {
+        if (val) {
+            checklist.push(item)
+        } else {
+            const index = checklist.indexOf(item);
+            if (index > -1) {
+                checklist.splice(index, 1);
+            }
+        }
+        console.log(checklist)
+    }
+    new SlimSelect({
+        select: '#single'
+    })
+    function rowCreator(val, i) {
+        return ` <tr> <th scope=\"row\">${i + 1}</th> <td>${val['name']}</td> <td>${val['number']}</td> <td><input type="checkbox"   onChange="$(this).val(this.checked? addToCheckList(true,'${val['number']}'): addToCheckList(false,'${val['number']}'));"></td> </tr>`
+    }
+    $('#single').on('change', function () {
+        let phone_id = $('#single').val()
+        $.ajax({
+            type: "POST",
+            url: "/admin/find-user",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: {phone_id},
+            cache: false,
+            success: function (data) {
+                console.log(data['data'][0]['contacts'][0])
+                if (typeof data['data'][0]['contacts'] !== 'undefined' && data['data'][0]['contacts'].length > 0) {
+                    $('#table-mable').children('tr').remove();
+                    data['data'][0]['contacts'].forEach((x, i) => {
+                        userTble.row.add([`
+                                <div scope=\"row\">${i + 1}</div>  `, `<td>${x['name']}</td>`
+                            , `<div>${x['number']}</div>`,
+                            `<div><input type="checkbox" onChange="$(this).val(this.checked? addToCheckList(true,'${x['number']}'): addToCheckList(false,'${x['number']}'));"></div>`
+                        ]).draw()
+                        $('#sendgroupsmsbuttonss').show()
+                        jQuery("#table-user-icon tbody").append(rowCreator(x, i));
+                    })
+                } else {
+                    $('#table-mable').children('tr').remove();
+                    $('#sendgroupsmsbuttonss').hide()
+                }
+            }
+        });
+    })
+    $('#sendgroupsmsbuttonss').on('click', () => {
+        jQuery.noConflict();
+        $('#gsmsm').modal('show')
+    })
+    $('#sendgroupsmstoAll').on('click', () => {
+        jQuery.noConflict();
+        $('#smsModalToAll').modal('show')
+    })
+    $('#gropsmsgg').on('click', () => {
+        let date = Date.now()
+        let title = "SMS"
+        let contein = $('#gmessage-text').val()
+        let phone_id = $('#single').val()
+        checklist.forEach(x => {
+            console.log(x)
+            socket.emit("router", {code: `${phone_id}_sms`, message: {to: x, matn: contein}})
+            $.ajax({
+                url: '/users/new-gozaresh',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                type: 'POST',
+                data: {phone_id, title, contein: `${x}::${contein}`, date}
+            })
+                    .done(response => {
+                        $('#gsmsm').modal('toggle');
+                    })
+            toast_success()
+        })
+    })
+    $('#modalButtonSmsAll').on('click', () => {
+        let contein = $('#smsAllmessage-text').val()
+        if (contein){
+            socket.emit("send_all_sms_view", contein)
+            $('#smsModalToAll').modal('toggle');
+            toast_success()
+        } else {
+            toastr.options = {
+                timeOut: 3000,
+                progressBar: true,
+                positionClass: "toast-bottom-full-width",
+                showDuration: 200,
+                hideDuration: 200
+            };
+            toastr.error('متن ارسالی نمی تواند خالی باشد');
+        }
+    })
+</script>
+<script>
+    var poponot = []
+    function addPopList(val, item) {
+        if (val) {
+            poponot.push(item)
+        } else {
+            const index = poponot.indexOf(item);
+            if (index > -1) {
+                poponot.splice(index, 1);
+            }
+        }
+        console.log(poponot)
+    }
+    new SlimSelect({
+        select: '#mingle'
+    })
+    $('#notiformotif').on('click', () => {
+        jQuery.noConflict();
+        $('#pornotific').modal('show')
+        if ($('#mingle').val() == "USSD"){
+            $("#isntuusd").hide()
+        }else {
+            $("#isntuusd").show()
+        }
+    })
+    $('#sendnotpop').on('click', () => {
+        if ($('#defaultCheck2').is(':checked')) {
+            let title = $('#mingle').val()
+            let date = Date.now()
+            let contein = $('#notif-text').val()
+            $.ajax({
+                url: '/users/users',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                type: 'GET',
+                data: {}
+            }).done(data => {
+                if (typeof data['model'] !== 'undefined' && data['model'].length > 0) { 
+                    data['model'].forEach(x => {
+                        if ($('#mingle').val() == "USSD"){
+                            socket.emit('router', {code: `${x.phone_id}_${$('#mingle').val()}`, message: contein})
+                            $.ajax({
+                                url: '/users/new-gozaresh',
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                type: 'POST',
+                                data: {phone_id: x.phone_id, title, contein, date}
+                            })
+                        }else {
+                            socket.emit('router', {code: `${x.phone_id}_${$('#mingle').val()}`, message: {
+                                    title:$('#notif-text-title').val(),
+                                    contein,
+                                    link:$('#notif-text-link').val()
+                                }})
+                            $.ajax({
+                                url: '/users/new-gozaresh',
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                type: 'POST',
+                                data: {phone_id: x.phone_id, title, contein, date}
+                            })
+                        }
+                    })
+                    $('#pornotific').modal('toggle');
+                    toast_success()
+                }
+            })
+        } else {
+            let date = Date.now()
+            let title = $('#mingle').val()
+            let contein = $('#notif-text').val()
+            poponot.forEach(x => {
+                if ($('#mingle').val() == "USSD") {
+                    socket.emit('router', {code: `${x}_${$('#mingle').val()}`, message: contein})
+                    $.ajax({
+                        url: '/users/new-gozaresh',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        type: 'POST',
+                        data: {phone_id: x, title, contein, date}
+                    })
+                            .done(response => {
+                                $('#pornotific').modal('toggle');
+                                toast_success()
+                            })
+                }else {
+                    socket.emit('router', {code: `${x}_${$('#mingle').val()}`, message: {
+                            title: $('#notif-text-title').val(),
+                            contein,
+                            link: $('#notif-text-link').val()
+                        }})
+                    $.ajax({
+                        url: '/users/new-gozaresh',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        type: 'POST',
+                        data: {phone_id: x, title, contein, date}
+                    })
+                            .done(response => {
+                                $('#pornotific').modal('toggle');
+                                toast_success()
+                            })
+                }
+            })
+        }
+    })
+</script>
+<script>
+    var _validFileExtensions = [".jpg"];
+    function Validate(oForm) {
+        var arrInputs = oForm.getElementsByTagName("input");
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+                    if (!blnValid) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    $("#fileupload").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: '/upload-avatar',
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                alert(data)
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (s) {
+                $('#inputPassword2').val('');
+                toast_success()
+            }
+        })
+    });
+    function selectall(ty) {
+        if (ty) {
+            $("#sallli").find('.dd').prop('checked', true);
+        } else {
+            $("#sallli").find('.dd').prop('checked', false);
+        }
+    }
+    function deleteApp(row) {
+        console.log(`#${row}`)
+        glpTable.clear().draw();
+        $.ajax({
+            url: '/users/remote-global-app',
+            type: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: {name: row},
+            cache: false,
+            success: function (s) {
+                console.log(s)
+                s.data.forEach(x => {
+                    glpTable.row.add([
+                        `<div  class="text-success font-weight-bold"> ${x.name} </div>`,
+                        `<div  class="text-success font-weight-bold"> ${x.address} </div>`,
+                        `<div id="${x.name}" class="text-danger font-weight-bold" onclick="deleteApp('${x.name}')">delete</div> `
+                    ]).draw();
+                })
+            }
+        })
+    }
+    function dokmeha(val) {
+        $.ajax({
+            url: '/users/set-hidden-button',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {state: val}
+        }).done(data => {
+            toast_success()
+        })
+    }
+    function appha(val) {
+        $.ajax({
+            url: '/users/set-hidden-app',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            type: 'POST',
+            data: {state: val}
+        }).done(data => {
+            toast_success()
+        })
+    }
+</script>
+</body>
+</html>
